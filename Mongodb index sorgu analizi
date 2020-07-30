@@ -1,0 +1,28 @@
+Mongodb de index kullanımı ve sorgu analizi:
+
+db.ab.find(
+  {
+    "x._id": "c0ac57dc-8a23-4a5f-878b-39b88eb9be58",
+    "Status": "NewRequest" }
+) .sort({"y": 1}).explain()
+
+db.ab.aggregate([{$indexStats: {}}, {$match: {"name": "NewRequest_1"}}])
+{ 
+    "name" : "NewRequest_1", 
+    "key" : {
+        "x._id" : 1.0, 
+        "Status" : 1.0, 
+        "y" : 1.0
+    }, 
+    "host" : " nazelin-test-01.Development.com:27017", 
+    "accesses" : {
+        "ops" : NumberLong(10), 
+        "since" : ISODate("2020-07-06T08:24:27.290+0000")
+    }
+}
+Ops :kaç defa kullanıldığını görürüz
+Since :Bu MongoDB nin istatistikleri topladığı zamandır ve genellikle son başlangıç ​​zamanıdır.
+db.Claims.aggregate([{$indexStats:{}}])  tablodaki tüm index kullanımlarını gösterir.
+
+
+
